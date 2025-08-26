@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎬 Movie Ticket Booking</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      width: 90%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #1e90ff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #1c7ed6;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>🎬 Book Movie Tickets</h2>
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
+
+    <label for="movie">Select Movie</label>
+    <select id="movie">
+      <option value="Avengers: Endgame">Avengers: Endgame</option>
+      <option value="Jawan">Jawan</option>
+      <option value="RRR">RRR</option>
+    </select>
+
+    <label for="date">Date</label>
+    <input type="date" id="date" required>
+
+    <label for="seats">Number of Tickets</label>
+    <input type="number" id="seats" min="1" max="10" onchange="generateNames()">
+
+    <div id="nameFields"></div>
+
+    <button onclick="bookNow()">Book Now</button>
+  </div>
+
+  <script>
+    const pricePerTicket = 250;
+
+    function generateNames() {
+      const count = parseInt(document.getElementById('seats').value);
+      const container = document.getElementById('nameFields');
+      container.innerHTML = '';
+
+      for (let i = 1; i <= count; i++) {
+        const label = document.createElement('label');
+        label.textContent = `Name for Ticket ${i}`;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Enter full name';
+        input.required = true;
+        input.id = `name${i}`;
+        container.appendChild(label);
+        container.appendChild(input);
+      }
+    }
+
+    function bookNow() {
+      const email = document.getElementById('email').value;
+      const movie = document.getElementById('movie').value;
+      const date = document.getElementById('date').value;
+      const seats = document.getElementById('seats').value;
+      const names = [];
+
+      for (let i = 1; i <= seats; i++) {
+        const name = document.getElementById(`name${i}`).value;
+        if (!name) {
+          alert(`Please enter name for ticket ${i}`);
+          return;
+        }
+        names.push(name);
+      }
+
+      const query = `?event=movie&email=${encodeURIComponent(email)}&title=${encodeURIComponent(movie)}&date=${date}&seats=${seats}&names=${encodeURIComponent(names.join(','))}&price=${seats * pricePerTicket}`;
+      window.location.href = `payment.html${query}`;
+    }
+  </script>
+</body>
+</html>

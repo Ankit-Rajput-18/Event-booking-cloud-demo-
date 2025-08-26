@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventify – Book Your Experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      width: 260px;
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      padding: 25px 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .card h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      flex: 1;
+      font-size: 0.95rem;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .card button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .movie {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+    }
+
+    .music {
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    }
+
+    .comedy {
+      background: linear-gradient(135deg, #f7971e, #ffd200);
+      color: black;
+    }
+
+    .card button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎟️ Welcome To Booking Arena  </h1>
+  <div class="cards">
+    <div class="card">
+      <h2>🎬 Movie Night</h2>
+      <p>Experience the latest blockbusters in your city. Choose your seat and book instantly!</p>
+      <button class="movie" onclick="goToVerify('Movie')">Book Movie</button>
+    </div>
+    <div class="card">
+      <h2>🎵 Music Concert</h2>
+      <p>Feel the rhythm live! Select your favorite artist and reserve your spot today.</p>
+      <button class="music" onclick="goToVerify('Music')">Book Concert</button>
+    </div>
+    <div class="card">
+      <h2>🤣 Stand-up Comedy</h2>
+      <p>Laugh out loud with top comedians performing near you. Tickets selling fast!</p>
+      <button class="comedy" onclick="goToVerify('Comedy')">Book Show</button>
+    </div>
+  </div>
+
+  <script>
+    function goToVerify(type) {
+      window.location.href = `verify.html?event=${type}`;
+    }
+  </script>
+</body>
+</html>

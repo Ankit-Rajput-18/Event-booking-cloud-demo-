@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .payment-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+      max-width: 500px;
+      width: 90%;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .highlight {
+      color: #f1c40f;
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #f39c12;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #e67e22;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-box">
+    <h2>💳 Payment Details</h2>
+    <div id="details"></div>
+
+    <label for="method">Select Payment Method:</label>
+    <select id="method">
+      <option value="UPI">UPI</option>
+      <option value="Credit Card">Credit Card</option>
+      <option value="Net Banking">Net Banking</option>
+      <option value="Wallet">Wallet</option>
+    </select>
+
+    <button onclick="confirmPayment()">Pay Now</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+    const event = params.get("event");
+    const title = params.get("title");
+    const date = params.get("date");
+    const seats = params.get("seats");
+    const names = params.get("names")?.split(',');
+    const price = params.get("price");
+
+    const detailsDiv = document.getElementById("details");
+
+    detailsDiv.innerHTML = `
+      <p>📧 Email: <span class="highlight">${email}</span></p>
+      <p>📅 Date: <span class="highlight">${date}</span></p>
+      <p>🎫 Event Type: <span class="highlight">${event}</span></p>
+      <p>🎟 Title: <span class="highlight">${title}</span></p>
+      <p>👥 Attendees:</p>
+      <ul style="margin: 0 0 10px 20px;">${names.map(name => `<li>${name}</li>`).join('')}</ul>
+      <p>💰 Total Price: <span class="highlight">₹${price}</span></p>
+    `;
+
+    function confirmPayment() {
+      const method = document.getElementById("method").value;
+      const query = `?email=${encodeURIComponent(email)}&event=${encodeURIComponent(event)}&title=${encodeURIComponent(title)}&date=${encodeURIComponent(date)}&seats=${seats}&names=${encodeURIComponent(names.join(','))}&price=${price}&method=${encodeURIComponent(method)}`;
+      window.location.href = `confirmation.html${query}`;
+    }
+  </script>
+</body>
+</html>

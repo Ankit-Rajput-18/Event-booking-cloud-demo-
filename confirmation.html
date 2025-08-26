@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmation</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .confirmation-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      max-width: 600px;
+      width: 90%;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+    }
+    li::before {
+      content: '👤 ';
+    }
+    .highlight {
+      color: #f1c40f;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="confirmation-box">
+    <h2>✅ Payment Successful!</h2>
+    <div id="summary"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+    const event = params.get("event");
+    const title = params.get("title");
+    const date = params.get("date");
+    const seats = params.get("seats");
+    const names = params.get("names")?.split(',');
+    const price = params.get("price");
+    const method = params.get("method");
+
+    const summaryDiv = document.getElementById("summary");
+    summaryDiv.innerHTML = `
+      <p>📧 Email: <span class="highlight">${email}</span></p>
+      <p>🎫 Event Type: <span class="highlight">${event}</span></p>
+      <p>🎟 Title: <span class="highlight">${title}</span></p>
+      <p>📅 Date: <span class="highlight">${date}</span></p>
+      <p>👥 Number of Tickets: <span class="highlight">${seats}</span></p>
+      <p>💳 Payment Method: <span class="highlight">${method}</span></p>
+      <p>💰 Total Paid: <span class="highlight">₹${price}</span></p>
+      <p>🙋‍♂️ Attendees:</p>
+      <ul>${names.map(name => `<li>${name}</li>`).join('')}</ul>
+    `;
+  </script>
+</body>
+</html>
